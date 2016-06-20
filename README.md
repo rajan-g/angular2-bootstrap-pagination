@@ -1,5 +1,5 @@
-# angular2-letter-avatar
-letter avatar is angular2 directive. It will generate avatar based on given text
+# angular2-bootstrap-pagination
+angular2-bootstrap-pagination is angular2 directive.
 
 The sources for this package are in (https://github.com/rajan-g/angular2-bootstrap-pagination.git) repo. Please file issues and pull requests against that repo.
 ### Demo Output
