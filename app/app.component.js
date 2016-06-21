@@ -27,8 +27,8 @@ System.register(['angular2/core', '../directives/pagination.directive'], functio
             AppComponent = (function () {
                 function AppComponent() {
                     this.currentPage = 1;
-                    this.totalItems = 200;
-                    this.maxSize = 5;
+                    this.totalItems = 12;
+                    this.maxSize = 3;
                     this.currentPage2 = 1;
                     this.totalItems2 = 200;
                     this.maxSize2 = 5;
@@ -53,7 +53,7 @@ System.register(['angular2/core', '../directives/pagination.directive'], functio
                     core_1.Component({
                         selector: 'my-app',
                         directives: [pagination_directive_1.PaginationDirective],
-                        template: "<ng-pagination [totalItems]=\"totalItems\" [(ngModel)]=\"currentPage\" [maxSize]=\"maxSize\" (pageChanged)=\"pageChanged($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"First\" last-text=\"Last\"></ng-pagination>\n<br>\n<br>\n<br>\n<ng-pagination [totalItems]=\"totalItems2\" [(ngModel)]=\"currentPage2\" [maxSize]=\"maxSize2\" (pageChanged)=\"pageChanged2($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\"></ng-pagination>\n",
+                        template: "\n<div *ngIf=\"totalItems >0\">\n<ng-pagination [totalItems]=\"totalItems\" [(ngModel)]=\"currentPage\" [maxSize]=\"maxSize\" (pageChanged)=\"pageChanged($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"First\" last-text=\"Last\"></ng-pagination>\n</div>\n<br>\n<br>\n<br><div *ngIf=\"totalItems2 >0\">\n<ng-pagination [totalItems]=\"totalItems2\" [(ngModel)]=\"currentPage2\" [maxSize]=\"maxSize2\" (pageChanged)=\"pageChanged2($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\"></ng-pagination>\n</div>\n",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

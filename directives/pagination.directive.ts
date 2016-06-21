@@ -1,11 +1,10 @@
-import {Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnChanges} from "angular2/core";
-import {NgModel, NgIf, NgFor, NgClass, FORM_DIRECTIVES, ControlValueAccessor} from "angular2/common";
+import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
+import {NgModel,NgIf, NgFor, NgClass,FORM_DIRECTIVES, ControlValueAccessor} from "angular2/common";
 
 @Component({
-  selector: 'ng-pagination[ngModel]',
+  selector:'ng-pagination[ngModel]',
   directives: [FORM_DIRECTIVES, NgIf, NgFor, NgClass],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+  template:`
               <ul class="pagination">
                   <li *ngIf="previousItemValid && firstText" (click)="firstPage()"><a href="#" [innerHTML]="firstText">First</a></li>
                   <li> <a *ngIf="previousItemValid" (click)="previousPage(nextItem)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
@@ -18,18 +17,18 @@ import {NgModel, NgIf, NgFor, NgClass, FORM_DIRECTIVES, ControlValueAccessor} fr
 
 `
 })
-export class PaginationDirective implements ControlValueAccessor, OnInit, OnChanges {
-  @Input("previous-text") previousText: string;
-  @Input("next-text") nextText: string;
-  @Input("first-text") firstText: string;
-  @Input("last-text") lastText: string;
-  @Input("totalItems") totalItems: number;
-  @Input("currentPage") cPage: number;
-  @Input("maxSize") pageSize: number;
-  @Input("boundaryLinks") boundaryLinks: boolean;
+export class PaginationDirective implements ControlValueAccessor, OnInit{
+  @Input("previous-text") previousText:string;
+  @Input("next-text") nextText:string;
+  @Input("first-text") firstText:string;
+  @Input("last-text") lastText:string;
+  @Input("totalItems") totalItems:number;
+  @Input("currentPage") cPage:number;
+  @Input("maxSize") pageSize:number;
+  @Input("boundaryLinks") boundaryLinks:boolean;
   @Output("pageChanged") pageChanged = new EventEmitter();
-  currentpage: number;
-  pageList: Array<number> = [];
+  currentpage:number;
+  pageList:Array<number> = [];
   private onChange: Function;
   private onTouched: Function;
   private seletedPage: number;
@@ -37,94 +36,88 @@ export class PaginationDirective implements ControlValueAccessor, OnInit, OnChan
   private previousItem: number;
   private nextItemValid: boolean;
   private previousItemValid: boolean;
-
+  
   constructor(private pageChangedNgModel: NgModel) {
     this.pageChangedNgModel.valueAccessor = this;
-
+   
   }
   ngOnInit() {
     this.doPaging();
   }
   doPaging() {
-    this.pageList = [];
-    var i, count;
-    this.seletedPage = this.currentpage;
-    var totalSize =(this.totalItems / this.pageSize)+(this.totalItems % this.pageSize ===0 ? 0 : 1);
-    for (i = (this.currentpage), count = 0; i < totalSize && count < this.pageSize; i++ , count++) {
+     this.pageList = [];
+     var i,count;
+     this.seletedPage = this.currentpage;
+     var remaining = this.totalItems % this.pageSize;
+    var totalSize =((this.totalItems-remaining) / this.pageSize)+(remaining ===0 ? 0 : 1);
+    for (i = (this.currentpage), count=0; i<= totalSize && count<this.pageSize; i++, count++) {
       this.pageList.push(i);
     }
     //next validation
-    if (i < (this.totalItems / this.pageSize)) {
+    if(i-1<totalSize) {
       this.nextItemValid = true;
       this.nextItem = i;
-    } else {
-      this.nextItemValid = false;
+    }else {
+      this.nextItemValid = false;      
     }
     //previous validation
-    if ((this.currentpage) > 1) {
+    if((this.currentpage) >1) {
       this.previousItemValid = true;
-      this.previousItem = (this.currentpage * this.pageSize) - 1;
-    } else {
+       this.previousItem = (this.currentpage*this.pageSize)-1;
+    }else {
       this.previousItemValid = false;
     }
   }
   setCurrentPage(pageNo) {
     this.seletedPage = pageNo;
-    this.currentpage = pageNo;
+    this.pageChangedNgModel.viewToModelUpdate(pageNo);
     this.pageChageListner();
   }
   firstPage() {
-    this.currentpage = 1;
-    this.seletedPage = 1;
+     this.currentpage = 1;
+    this.pageChangedNgModel.viewToModelUpdate(1);
     this.pageChageListner();
+    this.doPaging()
   }
   lastPage() {
     var totalPages = (this.totalItems / this.pageSize);
-    var lastPage = (totalPages) - (totalPages % this.pageSize === 0 ? this.pageSize : totalPages % this.pageSize) + 1;
-    this.currentpage = lastPage;
-    this.seletedPage = lastPage;
+    var lastPage = (totalPages) - (totalPages % this.pageSize === 0 ? this.pageSize : totalPages % this.pageSize)+1;
+     this.currentpage = lastPage;
+    this.pageChangedNgModel.viewToModelUpdate(lastPage);
     this.pageChageListner();
+    this.doPaging()
   }
   nextPage(pageNo) {
     this.currentpage = pageNo;
-    this.seletedPage = pageNo;
-//    this.pageChangedNgModel.viewToModelUpdate(pageNo);
+    this.pageChangedNgModel.viewToModelUpdate(pageNo);
     this.pageChageListner();
+    this.doPaging()
   }
   previousPage(pageNo) {
-    this.currentpage = pageNo - this.pageSize;
-    this.seletedPage = this.currentpage;
-//    this.pageChangedNgModel.viewToModelUpdate(this.currentpage);
+    var temp = pageNo - this.pageSize;
+    this.currentpage = temp > 0 ?temp: 1;
+    this.pageChangedNgModel.viewToModelUpdate(this.currentpage);
     this.pageChageListner();
+    this.doPaging();
   }
   writeValue(value: string): void {
-    if (!value) return;
-    this.setValue(value);
-  }
+        if (!value) return;
+        this.setValue(value);
+    }
 
-  registerOnChange(fn: (_: any) => {}): void {
-    this.onChange = fn;
-  }
+    registerOnChange(fn: (_: any) => {}): void {
+        this.onChange = fn;
+    }
 
-  registerOnTouched(fn: (_: any) => {}): void {
-    this.onTouched = fn;
-  }
-  setValue(currentValue) {
+    registerOnTouched(fn: (_: any) => {}): void {
+        this.onTouched = fn;
+    }
+  setValue(currentValue){
     this.currentpage = currentValue;
   }
   pageChageListner() {
-    this.pageChangedNgModel.model = this.seletedPage;
-     this.pageChangedNgModel.valueAccessor.writeValue(this.seletedPage);
-    this.pageChangedNgModel.viewToModelUpdate(this.seletedPage);
-    this.doPaging();
     this.pageChanged.emit({
-      page: this.seletedPage,
-      itemsPage: this.pageSize
+      itemsPerPage: this.currentpage
     })
-  }
-
-  ngOnChanges(...args: any[]) {
-    console.log(args);
-    this.doPaging();
   }
 }
