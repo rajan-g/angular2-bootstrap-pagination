@@ -2,7 +2,7 @@
  * @author RAJAN G
  */
 
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {PaginationDirective} from '../directives/pagination.directive';
 
 @Component({

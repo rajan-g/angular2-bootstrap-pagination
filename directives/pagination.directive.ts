@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
-import {NgModel,NgIf, NgFor, NgClass,FORM_DIRECTIVES, ControlValueAccessor} from "angular2/common";
+import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
+import {NgModel,NgIf, NgFor, NgClass,FORM_DIRECTIVES, ControlValueAccessor} from "@angular/common";
 
 @Component({
   selector:'ng-pagination[ngModel]',
