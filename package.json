@@ -1,6 +1,6 @@
 {
   "name": "angular2-bootstrap-pagination",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "angular2-bootstrap-pagination is angular2 directive. It will generate pagination or this directive must need boostrap package",
   "main": "index.js",
   "scripts": {
