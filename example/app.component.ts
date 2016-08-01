@@ -8,19 +8,24 @@ import {PaginationDirective} from '../directives/pagination.directive';
 @Component({
     selector: 'my-app',
     directives: [PaginationDirective],
-    template: `<ng-pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"
+    template: `
+<div *ngIf="totalItems >0">
+<ng-pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"
 previous-text="&lsaquo;" next-text="&rsaquo;" first-text="First" last-text="Last"></ng-pagination>
+</div>
 <br>
 <br>
-<br>
+<br>\
+<div *ngIf="totalItems2 >0">
 <ng-pagination [totalItems]="totalItems2" [(ngModel)]="currentPage2" [maxSize]="maxSize2" (pageChanged)="pageChanged2($event)"
 previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+</div>
 `,
 })
 export class AppComponent {
   public currentPage:number = 1;
-  public totalItems:number = 200;
-  public maxSize:number = 5;
+  public totalItems:number = 12;
+  public maxSize:number = 3;
    public currentPage2:number = 1;
   public totalItems2:number = 200;
   public maxSize2:number = 5;
