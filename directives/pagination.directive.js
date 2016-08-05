@@ -28,6 +28,22 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                     this.pageList = [];
                     this.pageChangedNgModel.valueAccessor = this;
                 }
+                PaginationDirective.prototype.ngOnChanges = function (changes) {
+                    var currentPage = this.seletedPage;
+                    this.doPaging();
+                    if (changes.totalItems.currentValue < changes.totalItems.previousValue) {
+                        var totalPages = Math.floor(changes.totalItems.currentValue / this.pageSize);
+                        if ((changes.totalItems.currentValue % this.pageSize === 0) && this.currentpage === totalPages) {
+                            this.seletedPage = --currentPage;
+                        }
+                        else {
+                            this.seletedPage = currentPage;
+                        }
+                    }
+                    else {
+                        this.seletedPage = currentPage;
+                    }
+                };
                 PaginationDirective.prototype.ngOnInit = function () {
                     this.doPaging();
                 };
@@ -40,7 +56,7 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                     for (i = (this.currentpage), count = 0; i <= totalSize && count < this.pageSize; i++, count++) {
                         this.pageList.push(i);
                     }
-                    //next validation
+                    // next validation
                     if (i - 1 < totalSize) {
                         this.nextItemValid = true;
                         this.nextItem = i;
@@ -48,7 +64,7 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                     else {
                         this.nextItemValid = false;
                     }
-                    //previous validation
+                    // previous validation
                     if ((this.currentpage) > 1) {
                         this.previousItemValid = true;
                         this.previousItem = (this.currentpage * this.pageSize) - 1;
@@ -146,13 +162,14 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                 ], PaginationDirective.prototype, "pageChanged", void 0);
                 PaginationDirective = __decorate([
                     core_1.Component({
-                        selector: 'ng-pagination[ngModel]',
+                        selector: "ng-pagination[ngModel]",
                         directives: [common_1.FORM_DIRECTIVES, common_1.NgIf, common_1.NgFor, common_1.NgClass],
-                        template: "\n              <ul class=\"pagination\">\n                  <li *ngIf=\"previousItemValid && firstText\" (click)=\"firstPage()\"><a href=\"#\" [innerHTML]=\"firstText\">First</a></li>\n                  <li> <a *ngIf=\"previousItemValid\" (click)=\"previousPage(nextItem)\" aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span> </a> </li>\n                  <li *ngFor=\"let pageNo of pageList\" [ngClass]=\"{'active':seletedPage === pageNo}\">\n                      <a (click)=\"setCurrentPage(pageNo)\">{{pageNo}}</a>\n                  </li>                \n                  <li> <a  *ngIf=\"nextItemValid\" (click)=\"nextPage(nextItem)\" aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span> </a> </li>\n                  <li><a *ngIf=\"nextItemValid && lastText\" (click)=\"lastPage()\" [innerHTML]=\"lastText\" >Last</a></li>\n                </ul>\n\n"
+                        template: "\n              <ul class=\"pagination\">\n                  <li *ngIf=\"previousItemValid && firstText\" (click)=\"firstPage()\"><a [innerHTML]=\"firstText\">First</a></li>\n                  <li> <a *ngIf=\"previousItemValid\" (click)=\"previousPage(nextItem)\" aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span> </a> </li>\n                  <li *ngFor=\"let pageNo of pageList\" [ngClass]=\"{'active':seletedPage === pageNo}\">\n                      <a (click)=\"setCurrentPage(pageNo)\">{{pageNo}}</a>\n                  </li>\n                  <li> <a  *ngIf=\"nextItemValid\" (click)=\"nextPage(nextItem)\" aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span> </a> </li>\n                  <li><a *ngIf=\"nextItemValid && lastText\" (click)=\"lastPage()\" [innerHTML]=\"lastText\" >Last</a></li>\n                </ul>\n\n"
                     }), 
-                    __metadata('design:paramtypes', [common_1.NgModel])
+                    __metadata('design:paramtypes', [(typeof (_a = typeof common_1.NgModel !== 'undefined' && common_1.NgModel) === 'function' && _a) || Object])
                 ], PaginationDirective);
                 return PaginationDirective;
+                var _a;
             }());
             exports_1("PaginationDirective", PaginationDirective);
         }
