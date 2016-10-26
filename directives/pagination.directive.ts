@@ -1,11 +1,12 @@
 import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
-import {NgModel,NgIf, NgFor, NgClass,FORM_DIRECTIVES, ControlValueAccessor} from "@angular/common";
+import {NgModel, ControlValueAccessor} from "@angular/forms";
+//import {NgIf, NgFor, NgClass} from "@angular/common";
 
 @Component({
   selector:'ng-pagination[ngModel]',
-  directives: [FORM_DIRECTIVES, NgIf, NgFor, NgClass],
+//  directives: [NgIf, NgFor, NgClass],
   template:`
-              <ul class="pagination">
+              <ul class="pagination" >
                   <li *ngIf="previousItemValid && firstText" (click)="firstPage()"><a href="#" [innerHTML]="firstText">First</a></li>
                   <li> <a *ngIf="previousItemValid" (click)="previousPage(nextItem)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
                   <li *ngFor="let pageNo of pageList" [ngClass]="{'active':seletedPage === pageNo}">
@@ -46,7 +47,7 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
   }
   doPaging() {
      this.pageList = [];
-     var i,count;
+     var i:number,count:number;
      this.seletedPage = this.currentpage;
      var remaining = this.totalItems % this.pageSize;
     var totalSize =((this.totalItems-remaining) / this.pageSize)+(remaining ===0 ? 0 : 1);
@@ -68,7 +69,7 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
       this.previousItemValid = false;
     }
   }
-  setCurrentPage(pageNo) {
+  setCurrentPage(pageNo:number) {
     this.seletedPage = pageNo;
     this.pageChangedNgModel.viewToModelUpdate(pageNo);
     this.pageChageListner();
@@ -87,13 +88,13 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
     this.pageChageListner();
     this.doPaging()
   }
-  nextPage(pageNo) {
+  nextPage(pageNo:number) {
     this.currentpage = pageNo;
     this.pageChangedNgModel.viewToModelUpdate(pageNo);
     this.pageChageListner();
     this.doPaging()
   }
-  previousPage(pageNo) {
+  previousPage(pageNo:number) {
     var temp = pageNo - this.pageSize;
     this.currentpage = temp > 0 ?temp: 1;
     this.pageChangedNgModel.viewToModelUpdate(this.currentpage);
@@ -112,8 +113,9 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
     registerOnTouched(fn: (_: any) => {}): void {
         this.onTouched = fn;
     }
-  setValue(currentValue){
+  setValue(currentValue:any){
     this.currentpage = currentValue;
+    this.doPaging();
   }
   pageChageListner() {
     this.pageChanged.emit({

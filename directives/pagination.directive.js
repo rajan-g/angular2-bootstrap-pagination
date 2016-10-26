@@ -1,4 +1,4 @@
-System.register(["@angular/core", "@angular/common"], function(exports_1, context_1) {
+System.register(["@angular/core", "@angular/forms"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,17 +10,18 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1;
+    var core_1, forms_1;
     var PaginationDirective;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (common_1_1) {
-                common_1 = common_1_1;
+            function (forms_1_1) {
+                forms_1 = forms_1_1;
             }],
         execute: function() {
+            //import {NgIf, NgFor, NgClass} from "@angular/common";
             PaginationDirective = (function () {
                 function PaginationDirective(pageChangedNgModel) {
                     this.pageChangedNgModel = pageChangedNgModel;
@@ -102,6 +103,7 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                 };
                 PaginationDirective.prototype.setValue = function (currentValue) {
                     this.currentpage = currentValue;
+                    this.doPaging();
                 };
                 PaginationDirective.prototype.pageChageListner = function () {
                     this.pageChanged.emit({
@@ -147,10 +149,10 @@ System.register(["@angular/core", "@angular/common"], function(exports_1, contex
                 PaginationDirective = __decorate([
                     core_1.Component({
                         selector: 'ng-pagination[ngModel]',
-                        directives: [common_1.FORM_DIRECTIVES, common_1.NgIf, common_1.NgFor, common_1.NgClass],
-                        template: "\n              <ul class=\"pagination\">\n                  <li *ngIf=\"previousItemValid && firstText\" (click)=\"firstPage()\"><a href=\"#\" [innerHTML]=\"firstText\">First</a></li>\n                  <li> <a *ngIf=\"previousItemValid\" (click)=\"previousPage(nextItem)\" aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span> </a> </li>\n                  <li *ngFor=\"let pageNo of pageList\" [ngClass]=\"{'active':seletedPage === pageNo}\">\n                      <a (click)=\"setCurrentPage(pageNo)\">{{pageNo}}</a>\n                  </li>                \n                  <li> <a  *ngIf=\"nextItemValid\" (click)=\"nextPage(nextItem)\" aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span> </a> </li>\n                  <li><a *ngIf=\"nextItemValid && lastText\" (click)=\"lastPage()\" [innerHTML]=\"lastText\" >Last</a></li>\n                </ul>\n\n"
+                        //  directives: [NgIf, NgFor, NgClass],
+                        template: "\n              <ul class=\"pagination\" >\n                  <li *ngIf=\"previousItemValid && firstText\" (click)=\"firstPage()\"><a href=\"#\" [innerHTML]=\"firstText\">First</a></li>\n                  <li> <a *ngIf=\"previousItemValid\" (click)=\"previousPage(nextItem)\" aria-label=\"Previous\"> <span aria-hidden=\"true\">&laquo;</span> </a> </li>\n                  <li *ngFor=\"let pageNo of pageList\" [ngClass]=\"{'active':seletedPage === pageNo}\">\n                      <a (click)=\"setCurrentPage(pageNo)\">{{pageNo}}</a>\n                  </li>                \n                  <li> <a  *ngIf=\"nextItemValid\" (click)=\"nextPage(nextItem)\" aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span> </a> </li>\n                  <li><a *ngIf=\"nextItemValid && lastText\" (click)=\"lastPage()\" [innerHTML]=\"lastText\" >Last</a></li>\n                </ul>\n\n"
                     }), 
-                    __metadata('design:paramtypes', [common_1.NgModel])
+                    __metadata('design:paramtypes', [forms_1.NgModel])
                 ], PaginationDirective);
                 return PaginationDirective;
             }());

@@ -1,7 +1,7 @@
 /*
  * @author RAJAN G
  */
-System.register(['@angular/core', '../directives/pagination.directive'], function(exports_1, context_1) {
+System.register(['@angular/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,15 +13,12 @@ System.register(['@angular/core', '../directives/pagination.directive'], functio
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, pagination_directive_1;
+    var core_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (pagination_directive_1_1) {
-                pagination_directive_1 = pagination_directive_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -52,8 +49,7 @@ System.register(['@angular/core', '../directives/pagination.directive'], functio
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        directives: [pagination_directive_1.PaginationDirective],
-                        template: "\n<div *ngIf=\"totalItems >0\">\n<ng-pagination [totalItems]=\"totalItems\" [(ngModel)]=\"currentPage\" [maxSize]=\"maxSize\" (pageChanged)=\"pageChanged($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"First\" last-text=\"Last\"></ng-pagination>\n</div>\n<br>\n<br>\n<br><div *ngIf=\"totalItems2 >0\">\n<ng-pagination [totalItems]=\"totalItems2\" [(ngModel)]=\"currentPage2\" [maxSize]=\"maxSize2\" (pageChanged)=\"pageChanged2($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\"></ng-pagination>\n</div>\n",
+                        template: "test\n<div *ngIf=\"totalItems >0\">\n<ng-pagination [totalItems]=\"totalItems\" [(ngModel)]=\"currentPage\" [maxSize]=\"maxSize\" (pageChanged)=\"pageChanged($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"First\" last-text=\"Last\"></ng-pagination>\n</div>\n<br>\n<br>\n<br><div *ngIf=\"totalItems2 >0\">\n<ng-pagination [totalItems]=\"totalItems2\" [(ngModel)]=\"currentPage2\" [maxSize]=\"maxSize2\" (pageChanged)=\"pageChanged2($event)\"\nprevious-text=\"&lsaquo;\" next-text=\"&rsaquo;\"></ng-pagination>\n</div>\n",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

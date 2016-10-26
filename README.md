@@ -13,13 +13,20 @@ The sources for this package are in (https://github.com/rajan-g/angular2-bootstr
         /* 
  * @author RAJAN G
  */
+//module file 
+import {PaginationDirective} from '../directives/pagination.directive';
+//include pagination directive
+@NgModule({
+  imports:      [ BrowserModule, FormsModule ],
+  declarations: [AppComponent, PaginationDirective],
+  bootstrap:    [ AppComponent ]
+})
 
 import {Component} from 'angular2/core';
-import {PaginationDirective} from '../directives/pagination.directive';
+
 
 @Component({
-    selector: 'my-app',
-    directives: [PaginationDirective],
+    selector: 'my-app',    
     template: `<ng-pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [boundaryLinks]="true" (pageChanged)="pageChanged($event)"
 previous-text="&lsaquo;" next-text="&rsaquo;" first-text="First" last-text="Last">`,
 })

@@ -3,12 +3,10 @@
  */
 
 import {Component} from '@angular/core';
-import {PaginationDirective} from '../directives/pagination.directive';
 
 @Component({
     selector: 'my-app',
-    directives: [PaginationDirective],
-    template: `
+    template: `test
 <div *ngIf="totalItems >0">
 <ng-pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"
 previous-text="&lsaquo;" next-text="&rsaquo;" first-text="First" last-text="Last"></ng-pagination>
