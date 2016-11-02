@@ -102,7 +102,7 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
     this.doPaging();
   }
   writeValue(value: string): void {
-        if (!value) return;
+        if (!value && value != '0') return;
         this.setValue(value);
     }
 

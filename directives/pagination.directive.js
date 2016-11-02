@@ -91,7 +91,7 @@ System.register(["@angular/core", "@angular/forms"], function(exports_1, context
                     this.doPaging();
                 };
                 PaginationDirective.prototype.writeValue = function (value) {
-                    if (!value)
+                    if (!value && value != '0')
                         return;
                     this.setValue(value);
                 };
