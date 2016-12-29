@@ -3,16 +3,16 @@ import {NgModel, ControlValueAccessor} from "@angular/forms";
 //import {NgIf, NgFor, NgClass} from "@angular/common";
 
 @Component({
-  selector:'ng-pagination[ngModel]',
+  selector:'ng-pagination',
 //  directives: [NgIf, NgFor, NgClass],
   template:`
               <ul class="pagination" >
-                  <li *ngIf="previousItemValid && firstText" (click)="firstPage()"><a href="#" [innerHTML]="firstText">First</a></li>
-                  <li> <a *ngIf="previousItemValid" (click)="previousPage(nextItem)" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
+                  <li *ngIf="previousItemValid && firstText" (click)="firstPage()"><a [innerHTML]="firstText">First</a></li>
+                  <li> <a *ngIf="previousItemValid" (click)="previousPage(nextItem)" aria-label="Previous"> <span aria-hidden="true" [innerHTML]="previousText">&laquo;</span> </a> </li>
                   <li *ngFor="let pageNo of pageList" [ngClass]="{'active':seletedPage === pageNo}">
                       <a (click)="setCurrentPage(pageNo)">{{pageNo}}</a>
                   </li>                
-                  <li> <a  *ngIf="nextItemValid" (click)="nextPage(nextItem)" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
+                  <li> <a  *ngIf="nextItemValid" (click)="nextPage(nextItem)" aria-label="Next"> <span aria-hidden="true" [innerHTML]="nextText">&raquo;</span> </a> </li>
                   <li><a *ngIf="nextItemValid && lastText" (click)="lastPage()" [innerHTML]="lastText" >Last</a></li>
                 </ul>
 
@@ -95,7 +95,7 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
     this.doPaging()
   }
   previousPage(pageNo:number) {
-    var temp = pageNo - this.pageSize;
+    var temp = pageNo - this.pageSize*2;
     this.currentpage = temp > 0 ?temp: 1;
     this.pageChangedNgModel.viewToModelUpdate(this.currentpage);
     this.pageChageListner();
@@ -119,7 +119,7 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
   }
   pageChageListner() {
     this.pageChanged.emit({
-      itemsPerPage: this.currentpage
+      currentPage: this.currentpage
     })
   }
 }
