@@ -95,7 +95,8 @@ export class PaginationDirective implements ControlValueAccessor, OnInit{
     this.doPaging()
   }
   previousPage(pageNo:number) {
-    var temp = pageNo - this.pageSize;
+    // var temp = pageNo - this.pageSize;
+    var temp = (pageNo-this.pageSize) - this.pageSize;
     this.currentpage = temp > 0 ?temp: 1;
     this.pageChangedNgModel.viewToModelUpdate(this.currentpage);
     this.pageChageListner();
